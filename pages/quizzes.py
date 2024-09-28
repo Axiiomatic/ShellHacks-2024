@@ -27,7 +27,7 @@ st.write("Standalone quizzes on financial literacy that test what you learned in
 q1, q2, q3, q4, q5, q6, q7, q8, q9, q10 = st.tabs(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"])
 
 with q1:
-    a1 = st.radio("Q1", ["A", "B", "C", "D"])
+    a1 = st.radio("", ["A", "B", "C", "D"])
     st.write("correct") if a1 == "A" else st.write("Incorrect")
 
 with q2:
