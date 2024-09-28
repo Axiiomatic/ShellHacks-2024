@@ -1,0 +1,5 @@
+streamlit==1.38.0  # Replace with the latest version or the version you are using
+pandas               # Pandas for data manipulation
+numpy                # NumPy for numerical operations
+matplotlib           #  Matplotlib for plotting
+# Add other dependencies as needed
