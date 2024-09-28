@@ -4,8 +4,12 @@
     "description": "Base Level Extension",
     "version": "1.0",
     "action": {
-      "default_popup": "hello.html",
-      "default_icon": "example.png"
-    }
+      "default_popup": "extension-popup.html",
+      "default_icon": "icon16.png"
+    },
+    "icons": { "16": "icon16.png",
+           "32": "icon32.png",
+          "128": "icon128.png" }
+
 }
   
