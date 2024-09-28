@@ -1,2 +1,5 @@
-# ShellHacks-2024
-Project for ShellHacks 2024 -
+# Treasure Keeper
+Project for ShellHacks 2024
+
+Treasure Keeper is a financial literacy web app serving low-income and first generation students.
+We aim to help students achieve their goals and improve their financial well-being.
