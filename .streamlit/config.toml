@@ -7,3 +7,6 @@ backgroundColor="#462730"
 
 [server]
 enableStaticServing = true
+
+[client]
+showSidebarNavigation = true
