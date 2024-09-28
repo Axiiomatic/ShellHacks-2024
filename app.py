@@ -20,3 +20,4 @@ with tutorial:
 
 st.title("Treasure Keeper")
 st.write("We help first-generation students with financial issues. Make this a paragraph long.")
+st.button("Stone and Steel")
