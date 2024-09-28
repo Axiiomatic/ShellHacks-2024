@@ -1,27 +1,27 @@
 # app.py
 import streamlit as st
 
-with open( "static/style.css" ) as css:
+with open( "static/style.css") as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html=True)
 
-home, budget, quiz, tutorial = st.columns(4, vertical_alignment="top", gap="medium")
-with home:
-    st.page_link("app.py", label="Home", icon="🏠")
+homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorialIcon, tutorial = st.columns(8, vertical_alignment="top", gap="small")
 
-with budget:
-    st.page_link("pages/budget-dashboard.py", label="Budgeting", icon="🧾")
+st.image("budget_bg.png", )
+home.page_link("app.py", label="Home")
+homeIcon.image("home.png")
 
-with quiz:
-    st.page_link("pages/quizzes.py", label="Quiz Me", icon="✏")
+budget.page_link("pages/budget-dashboard.py", label="Budgeting")
+budgetIcon.image("coin.png")
 
-with tutorial:
-    st.page_link("pages/tutorial.py", label="Tutorial")
+quiz.page_link("pages/quizzes.py", label="Quiz Me")
+quizIcon.image("showdown.png")
+
+tutorial.page_link("pages/tutorial.py", label="Tutorial")
+tutorialIcon.image("tutorial.png")
 
 
 st.title("Treasure Keeper")
 st.write("We help first-generation students with financial issues. Make this a paragraph long.")
-
-st.button("Stone and Steel")
 
 def login():
     st.session_state.logged_in = True
@@ -56,3 +56,6 @@ if 'logged_in' in st.session_state.keys() and st.session_state.logged_in:
         ("Full-time Student", "Part-time Student"),
         key="student_status"
     )
+
+st.html("""<button>Stone and Steel</button>""")
+st.image("budget_vault_bg.png")

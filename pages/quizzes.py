@@ -1,32 +1,25 @@
 #quizzes.py
 
 import streamlit as st
-import streamlit_book as stb
+
 
 with open( "static/style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html=True)
 
-home, budget, quiz, tutorial = st.columns(4, vertical_alignment="top", gap="medium")
-with home:
-    st.page_link("app.py", label="Home", icon="🏠")
+homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorialIcon, tutorial = st.columns(8, vertical_alignment="top", gap="small")
 
-with budget:
-    st.page_link("pages/budget-dashboard.py", label="Budgeting", icon="🧾")
+st.image("budget_bg.png", )
+home.page_link("app.py", label="Home")
+homeIcon.image("home.png")
 
-with quiz:
-    st.page_link("pages/quizzes.py", label="Quiz Me", icon="✏")
+budget.page_link("pages/budget-dashboard.py", label="Budgeting")
+budgetIcon.image("coin.png")
 
-with tutorial:
-    st.page_link("pages/tutorial.py", label="Tutorial")
+quiz.page_link("pages/quizzes.py", label="Quiz Me")
+quizIcon.image("showdown.png")
+
+tutorial.page_link("pages/tutorial.py", label="Tutorial")
+tutorialIcon.image("tutorial.png")
 
 st.title("Quiz")
 st.write("Standalone quizzes on financial literacy that test what you learned in the tutorial. they also give points. ")
-
-stb.multiple_choice("I typically ask recruiters to point out which of these area pokemon",
-                    {"ditto":True,
-                     "jupyter":False,
-                     "pyspark":False,
-                     "scikit":False,
-                     "metapod":True,
-                     "vulpix":True}
-                   )
