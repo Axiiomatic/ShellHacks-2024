@@ -9,4 +9,4 @@ backgroundColor="#462730"
 enableStaticServing = true
 
 [client]
-showSidebarNavigation = true
+showSidebarNavigation = false
