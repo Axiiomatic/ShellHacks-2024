@@ -1,0 +1,9 @@
+[browser]
+gatherUsageStats = false
+
+[theme]
+base="dark"
+backgroundColor="#462730"
+
+[client]
+showSidebarNavigation = true
