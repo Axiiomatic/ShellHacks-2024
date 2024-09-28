@@ -3,4 +3,5 @@ pandas               # Pandas for data manipulation
 numpy                # NumPy for numerical operations
 matplotlib           # Matplotlib for plotting
 streamlit_book       # Multiple-Choice Questions component
+openai               # chatgpt api
 # Add other dependencies as needed

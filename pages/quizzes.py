@@ -8,7 +8,7 @@ with open( "static/style.css" ) as css:
 
 homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorialIcon, tutorial = st.columns(8, vertical_alignment="top", gap="small")
 
-st.image("budget_bg.png", )
+#st.image("budget_bg.png", )
 home.page_link("app.py", label="Home")
 homeIcon.image("home.png")
 
