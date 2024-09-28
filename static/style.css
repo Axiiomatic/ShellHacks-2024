@@ -1,0 +1,32 @@
+@font-face {
+    font-family: 'retro_gaming';
+    src: url('app/static/retro_gaming-webfont.woff2') format('woff2'),
+         url('app/static/retro_gaming-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'upheaval';
+    src: url('app/static/upheavtt-webfont.woff2') format('woff2'),
+         url('app/static/upheavtt-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+#treasure-keeper {
+    font-family: 'upheaval';
+    font-size: 4em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+body, p {
+    font-family: "retro_gaming";
+}
+
+p {
+    text-align: center;
+}
