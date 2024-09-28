@@ -30,3 +30,7 @@ body, p {
 p {
     text-align: center;
 }
+
+button {
+    color: blue;
+}
