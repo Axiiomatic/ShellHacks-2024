@@ -5,12 +5,10 @@
     "version": "1.0",
     "side_panel": {
       "default_path" : "sidepanel.html",
-      "default_icon": "icon16.png"
+      "default_icon": "coin.png"
     },
     "permissions": ["sidePanel"],
-    "icons": { "16": "icon16.png",
-           "32": "icon32.png",
-          "128": "icon128.png" }
+    "icons": { "16": "coin.png"}
 
 }
   
