@@ -6,6 +6,8 @@ with open( "static/style.css") as css:
 
 homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorial = st.columns(7, vertical_alignment="top", gap="small")
 
+
+st.image("budget_bg.png", )
 home.page_link("app.py", label="Home")
 homeIcon.image("home.png")
 
@@ -20,5 +22,6 @@ tutorial.page_link("pages/tutorial.py", label="Tutorial")
 
 st.title("Treasure Keeper")
 st.write("We help first-generation students with financial issues. Make this a paragraph long.")
-st.html("""<button background="budget_bg.png">Stone and Steel</button>""")
+st.html("""<button>Stone and Steel</button>""")
+st.image("budget_bg.png")
 
