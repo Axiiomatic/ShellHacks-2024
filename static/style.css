@@ -32,6 +32,6 @@ p {
 }
 
 body {
-    background-image: url("budget_bg.png");
+    /*background-image: url("budget_bg.png"); */ /* Just placed the background image, don't know why*/
     background-size: cover;
 }
