@@ -1,7 +1,7 @@
 #quizzes.py
 
 import streamlit as st
-import streamlit_book as stb
+
 
 with open( "static/style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html=True)
@@ -21,12 +21,3 @@ with tutorial:
 
 st.title("Quiz")
 st.write("Standalone quizzes on financial literacy that test what you learned in the tutorial. they also give points. ")
-
-stb.multiple_choice("I typically ask recruiters to point out which of these area pokemon",
-                    {"ditto":True,
-                     "jupyter":False,
-                     "pyspark":False,
-                     "scikit":False,
-                     "metapod":True,
-                     "vulpix":True}
-                   )
