@@ -21,6 +21,7 @@ h1 {
     font-size: 4em;
     text-align: center;
     text-transform: uppercase;
+    animation: MoveUpDown 3s linear infinite;
 }
 
 body, p {
@@ -116,3 +117,38 @@ div[data-testid="stVerticalBlockBorderWrapper"]:has(
     width: 130px;
     align-self: end;
 }
+
+#title_div {
+    margin:auto;
+  width:1px;
+  height:1px;
+  position:relative; /*sets up for children to be abs pos*/
+  }
+
+#title_bg_right {
+    image-rendering: pixelated;
+    position:fixed;
+    bottom:0;  
+    right: 0;
+    width:300px;
+    height:300px;
+}
+
+#title_bg_left {
+    image-rendering: pixelated;
+    position:fixed;
+    bottom:0;  
+    left: 0;
+    width:300px;
+    height:300px;
+    transform: scaleX(-1);
+}
+  
+  @keyframes MoveUpDown {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }

@@ -17,12 +17,13 @@ def unkeep(key):
 user_data_dict =  {
     "name" : "",
     "pronouns": "",
-    "ethnicity": "Latin American",
-    "work_status": "N/A",
+    "ethnicity": "",
+    "work_status": "",
     "income": 0,
     "job_title": "",
-    "resident_status": "International Student",
-    "student_status": "Full-time Student",
+    "resident_status": "",
+    "student_status": "",
+    "enrollment_status": ""
 }
 
 for data, default_value in user_data_dict.items():
@@ -33,15 +34,15 @@ home, budget, quiz, advising = st.columns(4, vertical_alignment="top", gap="smal
 
 home.page_link("app.py", label="Home")
 
+
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
 
 quiz.page_link("pages/quizzes.py", label="Quiz Me")
 
 advising.page_link("pages/advising.py", label="Advising")
 
-
 st.title("Treasure Keeper")
-st.write("We help first-generation students with financial issues through interactive challenges and questionares. . Make this a paragraph long. ")
+st.write("Unlock your finances!\nWe help first-generation students and those with financial issues through interactive challenges and questionares. Ready to meet your new instructors and learn how to unlock all of your financial skills?. ")
 
 def login():
     st.session_state.logged_in = True
@@ -57,18 +58,20 @@ if 'logged_in' in st.session_state.keys() and st.session_state.logged_in:
     st.text_input("Pronouns: ", key="_pronouns", on_change=keep, args=['pronouns'])
     unkeep("ethnicity")
     st.selectbox("Ethnicity: ", (
-        "Latin American",
-        "African American",
-        "Middle Eastern",
-        "Pacific Islander",
+        "",
+        "American Indian or Alaska Native",
+        "Asian",
+        "Black or African American",
+        "Hispanic or Latino",
+        "Native Hawaiian or Other Pacific Islander",
         "White",
-        "Prefer Not To Say",
+        "Prefer Not To Say"
     ), key="_ethnicity", on_change=keep, args=["ethnicity"])
     unkeep("work_status")
-    st.selectbox("Working Status: ", ("N/A", "Full-Time Employed", "Part-Time Employed"),
+    st.selectbox("Working Status: ", ("", "N/A", "Full-Time Employed", "Part-Time Employed"),
                  key="_work_status", on_change=keep, args=["work_status"])
 
-    if "work_status" in st.session_state.keys() and st.session_state.work_status != "N/A":
+    if "work_status" in st.session_state.keys() and st.session_state.work_status != "" and st.session_state.work_status != "N/A":
         unkeep("income")
         st.number_input("Last Year's Income: ", key="_income", on_change=keep, args=["income"])
         unkeep("job_title")
@@ -78,15 +81,32 @@ if 'logged_in' in st.session_state.keys() and st.session_state.logged_in:
     unkeep("resident_status")
     st.selectbox(
         "Residency Status: ",
-        ("International Student", "In-State Resident Student", "Out-of-State Resident Student"),
+        ("", "U.S. Citizen", "Permanent resident (Green Card holder)", "International Student (F-1 visa, J-1 visa, etc)", "Foreign Worker (H-1B visa, H-1B1 visa, etc)", "N/A"),
         key="_resident_status", on_change=keep, args=["resident_status"]
     )
 
     unkeep("student_status")
     st.selectbox(
         "Student Status: ",
-        ("Full-time Student", "Part-time Student"),
+        ("", "In-State Student", "Out-of-State Student", "International Student", "N/A"),
         key="_student_status", on_change=keep, args=["student_status"]
     )
+    if "student_status" in st.session_state.keys() and st.session_state.student_status != "" and st.session_state.student_status != "N/A":
+        unkeep("enrollment_status")
+        st.selectbox(
+            "Enrollment Status: ",
+            ("", "Full-time Student", "Part-Time Student"),
+            key="_enrollment_status", on_change=keep, args=["enrollment_status"]
+        )
+    
+
 
 st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)
+
+# Add image to bottom right corner of the screen
+st.html(f"""
+    <div id="title_div">
+    <img src="app/static/title_bg.png" id="title_bg_right"/>
+        <img src="app/static/title_bg.png" id="title_bg_left"/>
+    </div>
+    """)
