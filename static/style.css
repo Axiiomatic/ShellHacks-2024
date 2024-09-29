@@ -31,7 +31,17 @@ p {
     text-align: center;
 }
 
-body {
-    /*background-image: url("budget_bg.png"); */ /* Just placed the background image, don't know why*/
-    background-size: cover;
+.stAppViewBlockContainer {
+    max-width: 52rem;
+}
+
+/* static/style.css */
+.sidebar .h2 {
+    font-size: 1.5em;
+    color: #4CAF50; /* Green color for visibility */
+}
+
+.sidebar .h3 {
+    font-size: 2em;
+    color: #4CAF50; /* Green color for visibility */
 }

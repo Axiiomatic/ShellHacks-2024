@@ -2,4 +2,5 @@ streamlit==1.38.0  # Replace with the latest version or the version you are usin
 pandas               # Pandas for data manipulation
 numpy                # NumPy for numerical operations
 matplotlib           # Matplotlib for plotting
+openai               # chatgpt api
 # Add other dependencies as needed
