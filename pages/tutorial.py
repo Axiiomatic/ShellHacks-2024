@@ -79,3 +79,5 @@ tutorialIcon.image("tutorial.png")
 
 st.title("Showdown Tutorial")
 st.write("Explains how to use the project, showdown mechanics, and how to use the extension to practice saving")
+
+st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)

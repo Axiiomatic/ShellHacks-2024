@@ -92,3 +92,5 @@ if 'logged_in' in st.session_state.keys() and st.session_state.logged_in:
         ("Full-time Student", "Part-time Student"),
         key="_student_status", on_change=keep, args=["student_status"]
     )
+
+st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)
