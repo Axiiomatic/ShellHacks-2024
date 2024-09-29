@@ -47,8 +47,18 @@ st.markdown("""
 # Navigation icons
 homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorialIcon, tutorial = st.columns(8, vertical_alignment="top", gap="small")
 
+hide_img_fs = '''
+<style>
+button[title="View fullscreen"]{
+    visibility: hidden;}
+</style>
+'''
 home.page_link("app.py", label="Home")
+<<<<<<< HEAD
 #home.markdown(hide_img_fs, unsafe_allow_html=True)
+=======
+home.markdown(hide_img_fs, unsafe_allow_html=True)
+>>>>>>> a9b19e540cab8669f8ca22dfafaa79ed545dfd70
 homeIcon.image("home.png")
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
 budgetIcon.image("coin.png")
@@ -99,3 +109,5 @@ else:
 # Title
 st.title("Budget Dashboard")
 st.write("Allow user to input their budget, see an overview, plan purchases and monthly payments.")
+
+st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)
