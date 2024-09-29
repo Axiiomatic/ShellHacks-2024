@@ -97,7 +97,6 @@ if 'current_question' not in st.session_state:
 st.title("Showdown!")
 st.write("Test what you've learned! Go through a series of questions on financial literacy to prove your growth and new knowledge. If you succeed, who knows what awaits behind that door...")
 
-st.audio("battle.mp3", format="audio/mpeg", loop=True, autoplay=True)
 
 questions = [
     ("What is the primary purpose of creating a budget?", 
@@ -195,3 +194,6 @@ if st.session_state.current_question < len(questions):
 else:
     st.markdown('<div class="success-bar">You\'ve completed the quiz! 🎉</div>', unsafe_allow_html=True)
     st.write(f"Total Coins: <span class='coins'>{st.session_state.coins}</span>", unsafe_allow_html=True)
+
+
+st.audio("battle.mp3", format="audio/mpeg", loop=True, autoplay=True)
