@@ -13,20 +13,24 @@ with open( "static/style.css" ) as css:
 
 env_data = get_env_data_as_dict('.env')
 
-user_data_string =(
-    f"Username: { st.session_state.name }\n"
-    f"Pronouns: { st.session_state.pronouns }\n"
-    f"Ethnicity: { st.session_state.ethnicity }\n"
-    f"Residency Status: {st.session_state.resident_status}\n"
-    f"Student Status: {st.session_state.student_status}\n"
-)
+user_data_exists = "name" in st.session_state and st.session_state["name"] != "" and st.session_state["pronouns"] != ""
 
-if st.session_state.work_status != "N/A":
-    user_data_string += (f"Work Status: {st.session_state.work_status}\n"
-                         f"Income: {st.session_state.income}\n"
-                         f"Job Title: {st.session_state.job_title}\n")
-else:
-    user_data_string += "Work Status: Unemployed\n"
+if user_data_exists:
+
+    user_data_string =(
+        f"First and Last Name: { st.session_state.name }\n"
+        f"Pronouns: { st.session_state.pronouns }\n"
+        f"Ethnicity: { st.session_state.ethnicity }\n"
+        f"Residency Status: {st.session_state.resident_status}\n"
+        f"Student Status: {st.session_state.student_status}\n"
+    )
+
+    if st.session_state.work_status != "N/A":
+        user_data_string += (f"Work Status: {st.session_state.work_status}\n"
+                             f"Income: {st.session_state.income}\n"
+                             f"Job Title: {st.session_state.job_title}\n")
+    else:
+        user_data_string += "Work Status: Unemployed\n"
 
 
 modes = {
@@ -52,16 +56,13 @@ modes = {
     }
 }
 
-chatgpt_enabled = "OPENAI_API_TOKEN" in env_data.keys()
+chatgpt_enabled = "OPENAI_API_TOKEN" in env_data.keys() and "gpt_mode" in st.session_state
 
-if chatgpt_enabled:
-    st.write("Chatgpt enabled")
+if chatgpt_enabled and user_data_exists:
     client = OpenAI(api_key=env_data["OPENAI_API_TOKEN"])
 
-    mode = "investing"
     sys_con = modes[mode]["sys_con"]
     prompt = user_data_string + modes[mode]["prompt"]
-    st.write(prompt)
 
 homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorialIcon, tutorial = st.columns(8, vertical_alignment="top", gap="small")
 
@@ -79,3 +80,28 @@ tutorialIcon.image("tutorial.png")
 
 st.title("Showdown Tutorial")
 st.write("Explains how to use the project, showdown mechanics, and how to use the extension to practice saving")
+
+if not "OPENAI_API_TOKEN" in env_data.keys():
+    st.write("ChatGPT Token not found")
+
+if not chatgpt_enabled:
+    st.write("Select an advisor.")
+
+if not user_data_exists:
+    st.write("Please enter your user data!")
+
+if chatgpt_enabled and user_data_exists:
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": sys_con},
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0
+    )
+
+    #st.write(completion)
+    st.write(completion.choices[0].message.content)
