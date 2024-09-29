@@ -89,7 +89,7 @@ st.markdown("""<style>
 
 home.page_link("app.py", label="Home")
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
-quiz.page_link("pages/quizzes.py", label="Quiz Me")
+quiz.page_link("pages/quizzes.py", label="Showdown")
 advising.page_link("pages/advising.py", label="Advising")
 
 # Initialize session state

@@ -47,15 +47,15 @@ home.page_link("app.py", label="Home")
 
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
 
-quiz.page_link("pages/quizzes.py", label="Quiz Me")
+quiz.page_link("pages/quizzes.py", label="Showdown")
 
 advising.page_link("pages/advising.py", label="Advising")
 
 if 'coins' not in st.session_state:
     st.session_state.coins = 0    
 
-st.title("Quiz")
-st.write("Standalone quizzes on financial literacy that test what you learned in advising. they also give points. ")
+st.title("Showdown!")
+st.write("Test what you've learned! Go through a series of questions on financial literacy to prove your growth and new knowledge. If you succeed, who knows what awaits behind that door...")
 
 st.audio("battle.mp3", format="audio/mpeg", loop=True, autoplay=True)
 
