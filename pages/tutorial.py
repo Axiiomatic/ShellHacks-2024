@@ -15,6 +15,8 @@ env_data = get_env_data_as_dict('.env')
 
 user_data_exists = "name" in st.session_state and st.session_state["name"] != "" and st.session_state["pronouns"] != ""
 
+chatgpt_enabled = "OPENAI_API_TOKEN" in env_data.keys() and "advisor" in st.session_state
+
 if user_data_exists:
 
     user_data_string =(
@@ -56,13 +58,11 @@ modes = {
     }
 }
 
-chatgpt_enabled = "OPENAI_API_TOKEN" in env_data.keys() and "gpt_mode" in st.session_state
-
 if chatgpt_enabled and user_data_exists:
     client = OpenAI(api_key=env_data["OPENAI_API_TOKEN"])
 
-    sys_con = modes[mode]["sys_con"]
-    prompt = user_data_string + modes[mode]["prompt"]
+    sys_con = modes[st.session_state.advisor]["sys_con"]
+    prompt = user_data_string + modes[st.session_state.advisor]["prompt"]
 
 homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorialIcon, tutorial = st.columns(8, vertical_alignment="top", gap="small")
 
@@ -78,8 +78,20 @@ quizIcon.image("showdown.png")
 tutorial.page_link("pages/tutorial.py", label="Tutorial")
 tutorialIcon.image("tutorial.png")
 
-st.title("Showdown Tutorial")
-st.write("Explains how to use the project, showdown mechanics, and how to use the extension to practice saving")
+st.title("Choose your advisor!")
+st.write("The king's advisors are here to help you at any time!")
+
+def set_advisor(advisor):
+    st.session_state.advisor = advisor;
+
+budgetBtn, creditBtn,insurBtn, investBtn, finAidBtn = st.columns(5, vertical_alignment="top", gap="small")
+
+budgetBtn.button("Budget Planner", key="budgeting", on_click=set_advisor, args=["budgeting"])
+creditBtn.button("Credit and Loan Advisor", key="credit", on_click=set_advisor, args=["credit"])
+insurBtn.button("Insurance Helper", key="insurance", on_click=set_advisor, args=["insurance"])
+investBtn.button("Investment Planner", key="investing", on_click=set_advisor, args=["investing"])
+finAidBtn.button("Financial Aid Advisor", key="financial_aid", on_click=set_advisor, args=["finacial_aid"])
+
 
 if not "OPENAI_API_TOKEN" in env_data.keys():
     st.write("ChatGPT Token not found")
@@ -103,5 +115,4 @@ if chatgpt_enabled and user_data_exists:
         temperature=0
     )
 
-    #st.write(completion)
     st.write(completion.choices[0].message.content)
