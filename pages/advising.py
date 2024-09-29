@@ -88,7 +88,7 @@ budgetBtn.button("Budget Planner", key="budgeting", on_click=set_advisor, args=[
 creditBtn.button("Credit and Loan Advisor", key="credit", on_click=set_advisor, args=["credit"])
 insurBtn.button("Insurance Helper", key="insurance", on_click=set_advisor, args=["insurance"])
 investBtn.button("Investment Planner", key="investing", on_click=set_advisor, args=["investing"])
-finAidBtn.button("Financial Aid Advisor", key="financial_aid", on_click=set_advisor, args=["finacial_aid"])
+finAidBtn.button("Financial Aid Advisor", key="financial_aid", on_click=set_advisor, args=["financial_aid"])
 
 
 if not "OPENAI_API_TOKEN" in env_data.keys():
@@ -113,6 +113,14 @@ if chatgpt_enabled and user_data_exists:
         temperature=0
     )
 
-    st.write(completion.choices[0].message.content)
+    st.html(f"""
+    <div id="character_parent">
+    <img src="app/static/{ st.session_state.advisor }_char.png" id="character"/>
+    <img src="app/static/speech_bubble_pointer.png" id="bubble_tail"/>
+    </div>
+    """)
+    border = st.container()
+    border.write(completion.choices[0].message.content)
+    border.markdown('<span id="after-gpt"></span>', unsafe_allow_html=True)
 
 #st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)

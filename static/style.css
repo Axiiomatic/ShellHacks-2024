@@ -81,3 +81,38 @@ a[href="advising"]::before {
     font-size: 2em;
     color: #4CAF50; /* Green color for visibility */
 }
+
+div[data-testid="stVerticalBlockBorderWrapper"]:has(
+      >div>div>div[data-testid="element-container"]
+      #after-gpt
+    ) {
+    image-rendering: pixelated;
+    border-image: url('app/static/speech_bubble_squircle.png') 10 fill/30px;
+    color: black;
+    padding: 30px;
+    margin-top: -20px;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"]:has(
+      >div>div>div[data-testid="element-container"]
+      #after-gpt
+    ) h3, li, td{
+    font-family: 'retro_gaming';
+    color: black;
+}
+
+#character_parent {
+    display: flex;
+}
+
+#character {
+    image-rendering: pixelated;
+    width: 250px;
+    align-self: end;
+}
+
+#bubble_tail {
+    image-rendering: pixelated;
+    width: 130px;
+    align-self: end;
+}
