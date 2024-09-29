@@ -1,5 +1,41 @@
 # app.py
 import streamlit as st
+import base64
+
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def set_png_as_page_bg(png_file):
+    bin_str = get_base64_of_bin_file(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    image-rendering: pixelated;
+    background-size: 100vw 100vh;
+    background-image: url("data:image/png;base64,%s");
+    background-position:center top;
+    
+    }
+    </style>
+    ''' % bin_str
+    
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+    return
+
+set_png_as_page_bg('static/title_bg.png')
+
+hide_streamlit_style = """
+            <style>
+                /* Hide the Streamlit header and menu */
+                header {visibility: hidden;}
+                /* Optionally, hide the footer */
+                .streamlit-footer {display: none;}
+            </style>
+            """
+
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 with open( "static/style.css") as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html=True)
@@ -33,7 +69,6 @@ for data, default_value in user_data_dict.items():
 home, budget, quiz, advising = st.columns(4, vertical_alignment="top", gap="small")
 
 home.page_link("app.py", label="Home")
-
 
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
 
@@ -102,11 +137,3 @@ if 'logged_in' in st.session_state.keys() and st.session_state.logged_in:
 
 
 st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)
-
-# Add image to bottom right corner of the screen
-st.html(f"""
-    <div id="title_div">
-    <img src="app/static/title_bg.png" id="title_bg_right"/>
-        <img src="app/static/title_bg.png" id="title_bg_left"/>
-    </div>
-    """)

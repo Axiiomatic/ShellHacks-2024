@@ -1,7 +1,42 @@
 #quizzes.py
 
 import streamlit as st
+import base64
 
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def set_png_as_page_bg(png_file):
+    bin_str = get_base64_of_bin_file(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    image-rendering: pixelated;
+    background-size: 100vw 100vh;
+    background-image: url("data:image/png;base64,%s");
+    background-position:center top;
+    
+    }
+    </style>
+    ''' % bin_str
+    
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+    return
+
+set_png_as_page_bg('static/showdown_bg.png')
+
+hide_streamlit_style = """
+            <style>
+                /* Hide the Streamlit header and menu */
+                header {visibility: hidden;}
+                /* Optionally, hide the footer */
+                .streamlit-footer {display: none;}
+            </style>
+            """
+
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 with open( "static/style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html=True)
