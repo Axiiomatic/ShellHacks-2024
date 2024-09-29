@@ -3,19 +3,12 @@
 import streamlit as st
 from openai import OpenAI
 
-def get_env_data_as_dict(path: str) -> dict:
-    with open(path, 'r') as f:
-       return dict(tuple(line.replace('\n', '').split('=')) for line
-                in f.readlines() if not line.startswith('#'))
-
 with open( "static/style.css" ) as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html=True)
 
-env_data = get_env_data_as_dict('.env')
-
 user_data_exists = "name" in st.session_state and st.session_state["name"] != "" and st.session_state["pronouns"] != ""
 
-chatgpt_enabled = "OPENAI_API_TOKEN" in env_data.keys() and "advisor" in st.session_state
+chatgpt_enabled = "OPENAI_API_KEY" in st.secrets and "advisor" in st.session_state
 
 if user_data_exists:
 
@@ -59,7 +52,7 @@ modes = {
 }
 
 if chatgpt_enabled and user_data_exists:
-    client = OpenAI(api_key=env_data["OPENAI_API_TOKEN"])
+    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
     sys_con = modes[st.session_state.advisor]["sys_con"]
     prompt = user_data_string + modes[st.session_state.advisor]["prompt"]
@@ -91,7 +84,7 @@ investBtn.button("Investment Planner", key="investing", on_click=set_advisor, ar
 finAidBtn.button("Financial Aid Advisor", key="financial_aid", on_click=set_advisor, args=["financial_aid"])
 
 
-if not "OPENAI_API_TOKEN" in env_data.keys():
+if not "OPENAI_API_KEY" in st.secrets:
     st.write("ChatGPT Token not found")
 
 if not chatgpt_enabled:
