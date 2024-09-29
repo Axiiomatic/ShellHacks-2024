@@ -54,11 +54,7 @@ button[title="View fullscreen"]{
 </style>
 '''
 home.page_link("app.py", label="Home")
-<<<<<<< HEAD
-#home.markdown(hide_img_fs, unsafe_allow_html=True)
-=======
 home.markdown(hide_img_fs, unsafe_allow_html=True)
->>>>>>> a9b19e540cab8669f8ca22dfafaa79ed545dfd70
 homeIcon.image("home.png")
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
 budgetIcon.image("coin.png")
