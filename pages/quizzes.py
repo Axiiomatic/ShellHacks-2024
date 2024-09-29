@@ -27,6 +27,9 @@ quizIcon.image("showdown.png")
 tutorial.page_link("pages/tutorial.py", label="Tutorial")
 tutorialIcon.image("tutorial.png")
 
+if 'coins' not in st.session_state:
+    st.session_state.coins = 0    
+
 st.title("Quiz")
 st.write("Standalone quizzes on financial literacy that test what you learned in the tutorial. they also give points. ")
 
@@ -39,6 +42,7 @@ with q1:
     if a1 == "B) To plan how to spend money and manage income versus expenses":
         st.write("correct") 
         st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True) 
+        st.session_state.coins += 1;
     else: st.write("Incorrect")
 
 with q2:
@@ -46,6 +50,7 @@ with q2:
     if a2 == "C) Tracking income and expenses regularly":
         st.write("correct")
         st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True) 
+        st.session_state.coins += 1;
     else: st.write("Incorrect")
 
 with q3:
@@ -53,6 +58,7 @@ with q3:
     if a3 == "B) To evaluate an individual's creditworthiness for loans and credit cards": 
         st.write("correct")
         st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True)
+        st.session_state.coins += 1;
     else: st.write("Incorrect")
 
 with q4:
@@ -60,6 +66,7 @@ with q4:
     if a4 == "C) Paying bills on time and keeping credit utilization low": 
         st.write("correct")
         st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True) 
+        st.session_state.coins += 1;
     else: st.write("Incorrect")
 
 with q5:
@@ -67,6 +74,7 @@ with q5:
     if a5 == "B) To provide financial protection against unforeseen events like accidents or illness": 
         st.write("correct")
         st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True) 
+        st.session_state.coins += 1;
     else: st.write("Incorrect")
 
 with q6:
@@ -74,13 +82,15 @@ with q6:
     if a6 == "B) The amount you must pay out-of-pocket before insurance covers a claim": 
         st.write("correct")
         st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True)
+        st.session_state.coins += 1;
     else: st.write("Incorrect")
 
 with q7:
     a7 = st.radio("What is the FAFSA used for?", ["A) To apply for personal loans", "B) To apply for federal student aid, including grants, loans, and work-study programs", "C) To pay taxes", "D) To open a savings account"])
     if a7 == "B) To apply for federal student aid, including grants, loans, and work-study programs":
         st.write("correct")
-        st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True) 
+        st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True)
+        st.session_state.coins += 1;
     else: st.write("Incorrect")
 
 with q8:
@@ -88,6 +98,7 @@ with q8:
     if a8 == "B) Grants and scholarships":
         st.write("correct")
         st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True)
+        st.session_state.coins += 1;
     else: st.write("Incorrect")
 
 with q9:
@@ -95,6 +106,7 @@ with q9:
     if a9 == "B) To earn returns over time and grow wealth": 
         st.write("correct")
         st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True)
+        st.session_state.coins += 1;    
     else: st.write("Incorrect")
 
 with q10:
@@ -102,4 +114,7 @@ with q10:
     if a9 == "B) Bonds": 
         st.write("correct")
         st.sidebar.markdown("![Confetti](https://img1.picmix.com/output/stamp/normal/0/3/0/1/2561030_878bc.gif)", unsafe_allow_html=True)
+        st.session_state.coins += 1;
     else: st.write("Incorrect")
+
+st.write(st.session_state.coins)
