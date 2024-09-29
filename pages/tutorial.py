@@ -63,9 +63,18 @@ if chatgpt_enabled:
     prompt = user_data_string + modes[mode]["prompt"]
     st.write(prompt)
 
+
+
 homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorialIcon, tutorial = st.columns(8, vertical_alignment="top", gap="small")
 
+hide_img_fs = '''
+<style>
+button[title="View fullscreen"]{
+    visibility: hidden;}
+</style>
+'''
 home.page_link("app.py", label="Home")
+home.markdown(hide_img_fs, unsafe_allow_html=True)
 homeIcon.image("home.png")
 
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
@@ -81,3 +90,4 @@ st.title("Showdown Tutorial")
 st.write("Explains how to use the project, showdown mechanics, and how to use the extension to practice saving")
 
 st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)
+
