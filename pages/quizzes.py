@@ -1,4 +1,40 @@
 import streamlit as st
+import base64
+
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def set_png_as_page_bg(png_file):
+    bin_str = get_base64_of_bin_file(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    image-rendering: pixelated;
+    background-size: 100vw 100vh;
+    background-image: url("data:image/png;base64,%s");
+    background-position:center top;
+    
+    }
+    </style>
+    ''' % bin_str
+    
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+    return
+
+set_png_as_page_bg('static/showdown_bg.png')
+
+hide_streamlit_style = """
+            <style>
+                /* Hide the Streamlit header and menu */
+                header {visibility: hidden;}
+                /* Optionally, hide the footer */
+                .streamlit-footer {display: none;}
+            </style>
+            """
+
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Add CSS for animations and styling
 st.markdown("""
@@ -46,7 +82,9 @@ home, budget, quiz, advising = st.columns(4, vertical_alignment="top", gap="smal
 
 home.page_link("app.py", label="Home")
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
-quiz.page_link("pages/quizzes.py", label="Quiz Me")
+
+quiz.page_link("pages/quizzes.py", label="Showdown")
+
 advising.page_link("pages/advising.py", label="Advising")
 
 if 'coins' not in st.session_state:
@@ -56,8 +94,8 @@ if 'coins' not in st.session_state:
 if 'current_question' not in st.session_state:
     st.session_state.current_question = 0    
 
-st.title("Quiz")
-st.write("Standalone quizzes on financial literacy that test what you learned in advising. They also give points.")
+st.title("Showdown!")
+st.write("Test what you've learned! Go through a series of questions on financial literacy to prove your growth and new knowledge. If you succeed, who knows what awaits behind that door...")
 
 st.audio("battle.mp3", format="audio/mpeg", loop=True, autoplay=True)
 

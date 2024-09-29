@@ -2,6 +2,43 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 from datetime import datetime, timedelta
+import base64
+
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+def set_png_as_page_bg(png_file):
+    bin_str = get_base64_of_bin_file(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    image-rendering: pixelated;
+    background-size: cover;
+    background-size: 100vw 100vh;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8) ), url("data:image/png;base64,%s");
+    background-position:center top;
+    
+    }
+    </style>
+    ''' % bin_str
+    
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+    return
+
+set_png_as_page_bg('static/budget_bg.png')
+
+hide_streamlit_style = """
+            <style>
+                /* Hide the Streamlit header and menu */
+                header {visibility: hidden;}
+                /* Optionally, hide the footer */
+                .streamlit-footer {display: none;}
+            </style>
+            """
+
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 # Load custom CSS
 with open("static/style.css") as css:
@@ -52,7 +89,7 @@ st.markdown("""<style>
 
 home.page_link("app.py", label="Home")
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
-quiz.page_link("pages/quizzes.py", label="Quiz Me")
+quiz.page_link("pages/quizzes.py", label="Showdown")
 advising.page_link("pages/advising.py", label="Advising")
 
 # Initialize session state
@@ -280,3 +317,5 @@ st.sidebar.markdown(gold_number, unsafe_allow_html=True)  # Updated style
 
 # Optional: Add a description below the gold counter in the sidebar
 st.sidebar.markdown("<p class='coin-counter'>Collect gold by setting your budget!</p>", unsafe_allow_html=True)
+
+st.audio("budget.mp3", format="audio/mpeg", loop=True, autoplay=True)
