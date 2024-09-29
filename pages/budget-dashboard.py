@@ -10,8 +10,7 @@ with open("static/style.css") as css:
 home, budget, quiz, advising = st.columns(4, vertical_alignment="top", gap="small")
 
 # Add custom CSS for sidebar title and expense items with light/dark mode support
-st.markdown("""
-    <style>
+st.markdown("""<style>
     .sidebar .sidebar-title {
         font-size: 32px;  
         font-weight: bold;
@@ -23,7 +22,6 @@ st.markdown("""
         font-weight: bold; 
         line-height: 1.5; 
     }
-
     /* Light Mode Styles */
     @media (prefers-color-scheme: light) {
         .sidebar .expense-title,
@@ -33,7 +31,6 @@ st.markdown("""
             color: #000 !important;  /* Set all sidebar text to black */
         }
     }
-
     /* Dark Mode Styles */
     @media (prefers-color-scheme: dark) {
         .sidebar .expense-title,
@@ -43,16 +40,11 @@ st.markdown("""
             color: #fff !important;  /* Set all sidebar text to white */
         }
     }
-    </style>
-""", unsafe_allow_html=True)
-
+</style>""", unsafe_allow_html=True)
 
 home.page_link("app.py", label="Home")
-
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
-
 quiz.page_link("pages/quizzes.py", label="Quiz Me")
-
 advising.page_link("pages/advising.py", label="Advising")
 
 # Initialize session state
@@ -69,6 +61,15 @@ if 'savings_goal' not in st.session_state:
 
 # Sidebar with title
 st.sidebar.markdown("<h1 class='sidebar-title'>Finance Board</h1>", unsafe_allow_html=True)
+
+# Refresh Button
+if st.sidebar.button("Refresh"):
+    # Reset relevant session states to refresh the page without losing tab
+    st.session_state.expenses = []  # Clear only the expenses
+    st.session_state.budget = 0      # Optionally reset budget
+    st.session_state.savings_goal = 0  # Optionally reset savings goal
+    st.session_state.last_budget_date = datetime.now() - timedelta(days=30)
+    st.success("Page refreshed!")  # Provide feedback to user
 
 # Initialize savings goal display
 savings_goal_text = st.sidebar.empty()
@@ -209,3 +210,4 @@ st.sidebar.markdown(gold_number, unsafe_allow_html=True)  # Updated style
 
 # Optional: Add a description below the gold counter in the sidebar
 st.sidebar.markdown("<p class='coin-counter'>Collect gold by setting your budget!</p>", unsafe_allow_html=True)
+
