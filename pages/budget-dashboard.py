@@ -7,7 +7,14 @@ with open( "static/style.css" ) as css:
 
 homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorialIcon, tutorial = st.columns(8, vertical_alignment="top", gap="small")
 
+hide_img_fs = '''
+<style>
+button[title="View fullscreen"]{
+    visibility: hidden;}
+</style>
+'''
 home.page_link("app.py", label="Home")
+home.markdown(hide_img_fs, unsafe_allow_html=True)
 homeIcon.image("home.png")
 
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
@@ -21,3 +28,5 @@ tutorialIcon.image("tutorial.png")
 
 st.title("Budget Dashboard")
 st.write("Allow user to input their budget, see an overview, plan purchases and monthly payments.")
+
+st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)
