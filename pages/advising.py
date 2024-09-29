@@ -66,26 +66,15 @@ if chatgpt_enabled and user_data_exists:
 
 
 
-homeIcon, home, budgetIcon, budget, quizIcon, quiz, tutorialIcon, tutorial = st.columns(8, vertical_alignment="top", gap="small")
+home, budget, quiz, advising = st.columns(4, vertical_alignment="top", gap="small")
 
-hide_img_fs = '''
-<style>
-button[title="View fullscreen"]{
-    visibility: hidden;}
-</style>
-'''
 home.page_link("app.py", label="Home")
-home.markdown(hide_img_fs, unsafe_allow_html=True)
-homeIcon.image("home.png")
 
 budget.page_link("pages/budget-dashboard.py", label="Budgeting")
-budgetIcon.image("coin.png")
 
 quiz.page_link("pages/quizzes.py", label="Quiz Me")
-quizIcon.image("showdown.png")
 
-tutorial.page_link("pages/tutorial.py", label="Tutorial")
-tutorialIcon.image("tutorial.png")
+advising.page_link("pages/advising.py", label="Advising")
 
 st.title("Choose your advisor!")
 st.write("The king's advisors are here to help you at any time!")
@@ -126,4 +115,4 @@ if chatgpt_enabled and user_data_exists:
 
     st.write(completion.choices[0].message.content)
 
-st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)
+#st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)

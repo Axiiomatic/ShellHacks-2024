@@ -34,3 +34,39 @@ p {
 .stAppViewBlockContainer {
     max-width: 52rem;
 }
+
+a[href="app"]::before {
+    content: "";
+    background-image: url('app/static/home.png');
+    display: inline-block;
+    background-size: 60px 60px;
+    width: 60px;
+    height: 60px;
+}
+
+a[href="budget-dashboard"]::before {
+    content: "";
+    background-image: url('app/static/coin.png');
+    display: inline-block;
+    background-size: 60px 60px;
+    width: 60px;
+    height: 60px;
+}
+
+a[href="quizzes"]::before {
+    content: "";
+    background-image: url('app/static/showdown.png');
+    display: inline-block;
+    background-size: 60px 60px;
+    width: 60px;
+    height: 60px;
+}
+
+a[href="advising"]::before {
+    content: "";
+    background-image: url('app/static/scroll.png');
+    display: inline-block;
+    background-size: 60px 60px;
+    width: 60px;
+    height: 60px;
+}
