@@ -70,3 +70,14 @@ a[href="advising"]::before {
     width: 60px;
     height: 60px;
 }
+
+/* static/style.css */
+.sidebar .h2 {
+    font-size: 1.5em;
+    color: #4CAF50; /* Green color for visibility */
+}
+
+.sidebar .h3 {
+    font-size: 2em;
+    color: #4CAF50; /* Green color for visibility */
+}
