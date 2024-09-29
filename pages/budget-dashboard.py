@@ -21,3 +21,5 @@ tutorialIcon.image("tutorial.png")
 
 st.title("Budget Dashboard")
 st.write("Allow user to input their budget, see an overview, plan purchases and monthly payments.")
+
+st.audio("menu.mp3", format="audio/mpeg", loop=True, autoplay=True)
