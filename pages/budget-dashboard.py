@@ -30,6 +30,10 @@ st.markdown("""<style>
         .sidebar {
             color: #000 !important;  /* Set all sidebar text to black */
         }
+        .expense-bubble {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #000;  /* Set text color to black */
+        }
     }
     /* Dark Mode Styles */
     @media (prefers-color-scheme: dark) {
@@ -38,6 +42,10 @@ st.markdown("""<style>
         .sidebar .savings-goal,
         .sidebar {
             color: #fff !important;  /* Set all sidebar text to white */
+        }
+        .expense-bubble {
+            background-color: #000;  /* Set background color to black */
+            color: #fff;  /* Set text color to white for readability */
         }
     }
 </style>""", unsafe_allow_html=True)
@@ -64,12 +72,11 @@ st.sidebar.markdown("<h1 class='sidebar-title'>Finance Board</h1>", unsafe_allow
 
 # Refresh Button
 if st.sidebar.button("Refresh"):
-    # Reset relevant session states to refresh the page without losing tab
     st.session_state.expenses = []  # Clear only the expenses
     st.session_state.budget = 0      # Optionally reset budget
     st.session_state.savings_goal = 0  # Optionally reset savings goal
     st.session_state.last_budget_date = datetime.now() - timedelta(days=30)
-    st.success("Page refreshed!")  # Provide feedback to user
+    st.success("Page Refreshed!")  # Provide feedback to user
 
 # Initialize savings goal display
 savings_goal_text = st.sidebar.empty()
@@ -88,12 +95,18 @@ if st.session_state.expenses:
     aggregated_expenses = expense_df.groupby('category').sum().reset_index()
 
     expenses_summary = "\n".join([f"<div class='expense-item'>"
-        f"{'🥗' if row['category'] == 'Food' else '🚗' if row['category'] == 'Transport' else '🎉' if row['category'] == 'Entertainment' else '🛍️'} "
+        f"{'🥗' if row['category'] == 'Food' else '🚗' if row['category'] == 'Transport' else '🎉' if row['category'] == 'Entertainment' else '🏠' if row['category'] == 'Housing' else '🛍️'} "
         f"<strong class='expense-title'>{row['category']}</strong>: ${row['amount']}</div>" 
         for _, row in aggregated_expenses.iterrows()])
-    expenses_display.markdown(f"**Expenses:**<br>{expenses_summary}", unsafe_allow_html=True)
+    
+    expenses_display.markdown(f"""
+        <div class='expense-bubble' style='border-radius: 10px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;'>
+            <strong style='font-size: 16px;'>Expenses:</strong><br>
+            {expenses_summary}
+        </div>
+    """, unsafe_allow_html=True)
 else:
-    expenses_display.markdown("**Expenses:**<br>No expenses recorded.", unsafe_allow_html=True)
+    expenses_display.markdown("<strong>Expenses:</strong><br>No expenses recorded.", unsafe_allow_html=True)
 
 # Title
 st.title("Budget Dashboard")
@@ -120,7 +133,7 @@ with st.expander("Set Your Monthly Budget", expanded=False):
 
 # Expense Tracking Section
 with st.expander("Track Your Expenses", expanded=False):
-    expense_category = st.selectbox("Select Expense Category:", ["Food", "Transport", "Entertainment", "Others"])
+    expense_category = st.selectbox("Select Expense Category:", ["Food", "Transport", "Entertainment", "Housing", "Others"])
     expense_input = st.number_input("Enter an expense:", min_value=0, step=1)
 
     if st.button("Add Expense"):
@@ -133,10 +146,16 @@ with st.expander("Track Your Expenses", expanded=False):
             aggregated_expenses = expense_df.groupby('category').sum().reset_index()
 
             expenses_summary = "\n".join([f"<div class='expense-item'>"
-                f"{'🥗' if row['category'] == 'Food' else '🚗' if row['category'] == 'Transport' else '🎉' if row['category'] == 'Entertainment' else '🛍️'} "
+                f"{'🥗' if row['category'] == 'Food' else '🚗' if row['category'] == 'Transport' else '🎉' if row['category'] == 'Entertainment' else '🏠' if row['category'] == 'Housing' else '🛍️'} "
                 f"<strong class='expense-title'>{row['category']}</strong>: ${row['amount']}</div>" 
                 for _, row in aggregated_expenses.iterrows()])
-            expenses_display.markdown(f"**Expenses:**<br>{expenses_summary}", unsafe_allow_html=True)
+            
+            expenses_display.markdown(f"""
+                <div class='expense-bubble' style='border-radius: 10px; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); margin-bottom: 20px;'>
+                    <strong style='font-size: 16px;'>Expenses:</strong><br>
+                    {expenses_summary}
+                </div>
+            """, unsafe_allow_html=True)
 
             # Display Expenses DataFrame
             st.write("**Expenses:**")
@@ -150,7 +169,8 @@ with st.expander("Track Your Expenses", expanded=False):
                 "Food": "#ff9999",         # Light red
                 "Transport": "#66b3ff",   # Light blue
                 "Entertainment": "#99ff99",# Light green
-                "Others": "#ffcc99"       # Light orange
+                "Housing": "#ffcc99",     # Light orange
+                "Others": "#d3d3d3"       # Light gray
             }
 
             # Create a bar chart using Altair
@@ -198,6 +218,56 @@ if st.session_state.budget > 0:
             </div>
         """, unsafe_allow_html=True)
 
+        # Confetti Animation on Goal Reached
+        if savings_percentage >= 100:
+            st.markdown("""
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/canvas-confetti/1.4.0/confetti.min.js"></script>
+                <script>
+                    var count = 200;
+                    var defaults = { origin: { y: 0.7 } };
+
+                    function fire(particleRatio, opts) {
+                        confetti(Object.assign({}, defaults, opts, {
+                            particleCount: Math.floor(count * particleRatio)
+                        }));
+                    }
+
+                    function celebrate() {
+                        setInterval(function() {
+                            fire(0.25, { spread: 26, startVelocity: 55, decay: 0.9, scalar: 1.2 });
+                            fire(0.2, { spread: 60 });
+                            fire(0.35, { spread: 100, decay: 0.91, scalar: 1.2 });
+                            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+                        }, 200);
+                        
+                        // Add a celebratory banner
+                        const banner = document.createElement('div');
+                        banner.id = 'celebration-banner';
+                        banner.style.position = 'fixed';
+                        banner.style.top = '0';
+                        banner.style.left = '0';
+                        banner.style.right = '0';
+                        banner.style.background = 'rgba(255, 215, 0, 0.9)';
+                        banner.style.color = '#000';
+                        banner.style.fontSize = '24px';
+                        banner.style.textAlign = 'center';
+                        banner.style.padding = '10px';
+                        banner.style.zIndex = '1000';
+                        banner.innerHTML = '🎉 Congratulations! You\'ve reached your savings goal! 🎉';
+                        document.body.appendChild(banner);
+
+                        setTimeout(() => {
+                            banner.style.transition = 'opacity 2s';
+                            banner.style.opacity = 0;
+                            setTimeout(() => banner.remove(), 2000); // Remove after fade out
+                        }, 3000);
+                    }
+                    celebrate();
+                </script>
+            """, unsafe_allow_html=True)
+
+            st.success("🎉 Congratulations! You've reached your savings goal! 🎉")
+
 # Sidebar: Gold Counter Section
 st.sidebar.markdown("---")  # Add a separator in the sidebar
 st.sidebar.markdown("<span class='savings-goal'>Your Gold</span>", unsafe_allow_html=True)  # Updated style
@@ -210,4 +280,3 @@ st.sidebar.markdown(gold_number, unsafe_allow_html=True)  # Updated style
 
 # Optional: Add a description below the gold counter in the sidebar
 st.sidebar.markdown("<p class='coin-counter'>Collect gold by setting your budget!</p>", unsafe_allow_html=True)
-
